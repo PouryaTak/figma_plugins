@@ -1,22 +1,28 @@
+// @ts-nocheck
+function runPlugin() {
+  let numebr_of_items = 0;
+  const selected = figma.currentPage.selection;
+  const styleList = figma.getLocalPaintStyles()
 
-function runPlugin(){
+  if (selected.length === 0) {
+    figma.closePlugin('Please select some valid objects');
+  }
+  for (let item of selected) {
 
-const selected = figma.currentPage.selection;
-for(let item of selected){
-  // @ts-ignore
-  console.log(item);
-  console.log(figma.parameters );
-  
+    if (item.fillStyleId) {
+      numebr_of_items++
+      const styleName = styleList.filter(style => style.id === item.fillStyleId)[0].name
+      const is_dark = styleName.includes('dark') ? 'dark' : 'light'
 
-  // for(let key in item){
-  //   console.log(`${key}: ${item[key]}`);
-  // }
-  
-}
-// console.log(selected);
-// console.log('Hello from Figma!');
+      const new_id = styleList.filter(style => style.name === styleName.replace(is_dark, is_dark === 'dark' ? 'light' : 'dark'))[0].id
+      item.fillStyleId = new_id
 
-  // figma.closePlugin();
+    }
+  }
+ if (numebr_of_items === 0) {
+    figma.closePlugin('Select objects with fill styles which has "dark" or "light" in its name');
+  }
+  figma.closePlugin(`${numebr_of_items} items have been updated`);
 }
 
 runPlugin();
