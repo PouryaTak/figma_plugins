@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .control_item {
+        display: flex;
+        flex-direction: column;
+      }
+      .control_item > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .field {
+        width: 100%;
+        height: calc(100vh - 200px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .card {
+        width: 100px;
+        height: 100px;
+        background: #f00;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="controls">
+      <div class="control_item">
+        <div>
+          <label for="x">rotate x</label>
+          <span class="valueX">0</span>
+        </div>
+        <input type="range" name="x" id="rotateX" value="0" min="0" max="359" />
+      </div>
+      <div class="control_item">
+        <div>
+          <label for="y">rotate y</label>
+          <span class="valueY">0</span>
+        </div>
+        <input type="range" name="y" id="rotateY" value="0" min="0" max="359" />
+      </div>
+      <div class="control_item">
+        <div>
+          <label for="z">rotate z</label>
+          <span class="valueZ">0</span>
+        </div>
+        <input type="range" name="z" id="rotateZ" value="0" min="0" max="359" />
+      </div>
+      <div class="control_item">
+        <div>
+          <label for="perspective">perspective</label>
+          <span class="valuePers">none</span>
+        </div>
+        <input type="range" name="perspective" id="perspective" value="0" min="0" max="300" />
+      </div>
+    </div>
+    <div class="field">
+      <div class="card"></div>
+    </div>
+    <script>
+      const x = document.querySelector("#rotateX");
+      const y = document.querySelector("#rotateY");
+      const z = document.querySelector("#rotateZ");
+      const perspective = document.querySelector("#perspective");
+      const style = {
+        x: 0,
+        y: 0,
+        z: 0,
+        perspective: 'none',
+      };
+
+      function setDomValues() {
+        document.querySelector(".valueX").innerHTML = style.x + ' deg';
+        document.querySelector(".valueY").innerHTML = style.y + ' deg';
+        document.querySelector(".valueZ").innerHTML = style.z + ' deg';
+        document.querySelector(".valuePers").innerHTML = style.perspective;
+      }
+
+      function setStyle() {
+        setDomValues();
+        const card = document.querySelector(".card");
+        card.setAttribute("style", `transform:perspective(${style.perspective}) rotateX(${style.x}deg) rotateY(${style.y}deg) rotateZ(${style.z}deg)`);
+      }
+
+      x.addEventListener("input", () => {
+        style.x = x.value;
+        setStyle();
+      });
+      y.addEventListener("input", () => {
+        style.y = y.value;
+        setStyle();
+      });
+      z.addEventListener("input", () => {
+        style.z = z.value;
+        setStyle();
+      });
+      perspective.addEventListener("input", () => {
+        if (perspective.value == 0) {
+          style.perspective = "none";
+        } else {
+          style.perspective = perspective.value + "px";
+        }
+        setStyle();
+      });
+    </script>
+  </body>
+</html>
