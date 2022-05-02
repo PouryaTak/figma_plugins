@@ -1,0 +1,10 @@
+{
+  "name": "3D Rotation",
+  "id": "1102978691879337964",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": [
+    "figma"
+  ],
+  "ui": "ui.html"
+}

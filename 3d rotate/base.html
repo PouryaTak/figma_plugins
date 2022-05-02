@@ -21,11 +21,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
       }
       .card {
-        width: 100px;
-        height: 100px;
-        background: #f00;
+        width: 200px;
+        height: 200px;
+        /* background: #f00; */
       }
     </style>
   </head>
@@ -61,7 +62,12 @@
       </div>
     </div>
     <div class="field">
-      <div class="card"></div>
+      <!-- <div class="card"></div> -->
+      <svg width="416" height="416" class="card" viewBox="0 0 416 416" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g>
+          <path d="M 208 0 C 93.30999755859375 0 0 93.30999755859375 0 208 C 0 322.69000244140625 93.30999755859375 416 208 416 C 322.69000244140625 416 416 322.69000244140625 416 208 C 416 93.30999755859375 322.69000244140625 0 208 0 Z M 304 224 L 224 224 L 224 304 L 192 304 L 192 224 L 112 224 L 112 192 L 192 192 L 192 112 L 224 112 L 224 192 L 304 192 L 304 224 Z" fill="#f0f"></path>
+        </g>
+      </svg>
     </div>
     <script>
       const x = document.querySelector("#rotateX");
@@ -72,20 +78,24 @@
         x: 0,
         y: 0,
         z: 0,
-        perspective: 'none',
+        perspective: "none",
       };
 
       function setDomValues() {
-        document.querySelector(".valueX").innerHTML = style.x + ' deg';
-        document.querySelector(".valueY").innerHTML = style.y + ' deg';
-        document.querySelector(".valueZ").innerHTML = style.z + ' deg';
+        document.querySelector(".valueX").innerHTML = style.x + " deg";
+        document.querySelector(".valueY").innerHTML = style.y + " deg";
+        document.querySelector(".valueZ").innerHTML = style.z + " deg";
         document.querySelector(".valuePers").innerHTML = style.perspective;
       }
 
       function setStyle() {
         setDomValues();
+        // const g = document.querySelector(".card g");
         const card = document.querySelector(".card");
-        card.setAttribute("style", `transform:perspective(${style.perspective}) rotateX(${style.x}deg) rotateY(${style.y}deg) rotateZ(${style.z}deg)`);
+        // card.setAttribute("style", `transform:perspective(${style.perspective}) rotateX(${style.x}deg) rotateY(${style.y}deg) rotateZ(${style.z}deg)`);
+        card.setAttribute("transform", `rotate(${style.x}) scale(${style.y})`);
+        // g.setAttribute("transform", `perspective(${style.perspective}) rotateX(${style.x}deg) rotateY(${style.y}deg) rotateZ(${style.z}deg)`);
+
       }
 
       x.addEventListener("input", () => {
